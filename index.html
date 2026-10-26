@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lin Chen — 前端开发者 / 博客</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+<div class="bg-scroll">
+  <div class="bg-slide" style="background-image:url('img/背景.jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (1).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (2).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (3).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (4).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (5).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (6).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (7).jpg')"></div>
+</div>
+<div class="bg-overlay"></div>
+
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"></span>
+      <span>Lin Chen</span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">关于</a>
+      <a href="posts.html">文章</a>
+      <a href="projects.html">项目</a>
+      <a href="music.html">音乐</a>
+
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a href="about.html#contact" class="nav-cta">订阅 RSS</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-deco">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"></div>
+      <div class="core"></div>
+    </div>
+
+    <img src="img/头像.jpg" alt="Lin Chen" class="avatar lg ring" style="margin-bottom: 32px;">
+    <div class="badge">
+      <span class="dot"></span>
+      <span>正在写作 · 2026</span>
+    </div>
+    <h1>用代码雕刻界面，<br>用文字记录<span class="accent">思考</span>。</h1>
+    <p class="lead">前端开发者，专注于交互体验与界面工程。这里是我记录技术探索、设计观察与工程实践的地方。相信好的产品来自对细节的偏执。</p>
+    <div class="hero-actions">
+      <a href="posts.html" class="btn-primary">
+        阅读文章
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="about.html#contact" class="btn-ghost">联系我</a>
+    </div>
+  </section>
+
+  <!-- 统计 -->
+  <section class="stats reveal">
+    <div class="stat"><div class="num">48</div><div class="label">已发布文章</div></div>
+    <div class="stat"><div class="num">12k</div><div class="label">月度阅读</div></div>
+    <div class="stat"><div class="num">6</div><div class="label">开源项目</div></div>
+    <div class="stat"><div class="num">3.2k</div><div class="label">GitHub Stars</div></div>
+  </section>
+
+  <!-- 关于 -->
+  <section class="about reveal" id="about">
+    <div class="section-head">
+      <h2>关于我</h2>
+      <a href="about.html" class="meta" style="text-decoration:none;transition:color 0.2s;">更多 →</a>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>我是 <strong>Lin Chen</strong>，一名前端开发者，过去五年在 SaaS 与开发者工具领域工作。日常用 TypeScript 构建复杂的前端系统，关注<strong>动画性能、可访问性与设计系统</strong>。</p>
+        <p>业余时间写一些关于界面工程的文章，偶尔做开源项目。喜欢研究 Linear、Vercel、Arc 这类产品背后的设计决策。</p>
+        <p>目前住在xxx。</p>
+      </div>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <div class="sg-title">// 语言与框架</div>
+          <div class="skill-tags">
+            <span class="tag hot">TypeScript</span>
+            <span class="tag hot">React</span>
+            <span class="tag">Vue 3</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">Svelte</span>
+            <span class="tag">Astro</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="sg-title">// 样式与动效</div>
+          <div class="skill-tags">
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">CSS Modules</span>
+            <span class="tag">Framer Motion</span>
+            <span class="tag">GSAP</span>
+            <span class="tag">Lottie</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="sg-title">// 工程与工具</div>
+          <div class="skill-tags">
+            <span class="tag">Vite</span>
+            <span class="tag">Turborepo</span>
+            <span class="tag">Playwright</span>
+            <span class="tag">Storybook</span>
+            <span class="tag">Figma</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 文章 -->
+  <section class="posts reveal" id="posts">
+    <div class="section-head">
+      <h2>最新文章</h2>
+      <a href="posts.html" class="meta" style="text-decoration:none;transition:color 0.2s;">查看全部 →</a>
+    </div>
+    <div class="post-list">
+      <a href="post.html" class="post">
+        <span class="date">10·06</span>
+        <div class="body">
+          <div class="title">拆解 Linear 的滚动动画：从弹簧物理到帧预算</div>
+          <div class="desc">逐帧分析 Linear 如何在 60fps 内实现丝滑的列表动画，以及如何在 React 中复刻。</div>
+        </div>
+        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="post.html" class="post">
+        <span class="date">09·22</span>
+        <div class="body">
+          <div class="title">用 CSS conic-gradient 做出高级感进度环</div>
+          <div class="desc">不依赖任何库，纯 CSS 实现可交互的环形进度指示器，附设计思路拆解。</div>
+        </div>
+        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="post.html" class="post">
+        <span class="date">09·08</span>
+        <div class="body">
+          <div class="title">View Transitions API 实战：给 SPA 加上原生级页面切换</div>
+          <div class="desc">浏览器原生支持的跨页面动画 API，比任何路由动画库都更轻量。兼容性与降级方案一并讲清。</div>
+        </div>
+        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="post.html" class="post">
+        <span class="date">08·19</span>
+        <div class="body">
+          <div class="title">设计系统的 token 命名：一份来自实践的经验清单</div>
+          <div class="desc">命名是设计系统最难的部分。本文整理了 20 条从真实项目里沉淀出的命名约定。</div>
+        </div>
+        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="post.html" class="post">
+        <span class="date">08·03</span>
+        <div class="body">
+          <div class="title">为什么我不再滥用 backdrop-filter</div>
+          <div class="desc">毛玻璃很美，但性能代价不低。一次性能复盘让我重新审视它的使用边界。</div>
+        </div>
+        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="post.html" class="post">
+        <span class="date">07·21</span>
+        <div class="body">
+          <div class="title">用 Container Queries 重写响应式组件</div>
+          <div class="desc">媒体查询的时代正在过去。基于组件自身尺寸的查询让可复用组件真正独立。</div>
+        </div>
+        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 项目 -->
+  <section class="projects reveal" id="projects">
+    <div class="section-head">
+      <h2>精选项目</h2>
+      <a href="projects.html" class="meta" style="text-decoration:none;transition:color 0.2s;">查看全部 →</a>
+    </div>
+    <div class="project-grid">
+      <a href="project.html" class="project-card featured">
+        <div class="pc-glow" style="background: radial-gradient(ellipse 70% 60% at 30% 20%, rgba(99,102,241,0.18), transparent 60%);"></div>
+        <div class="pc-top">
+          <div class="pc-icon" style="background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.15)); border-color: rgba(99,102,241,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A5B4FC" stroke-width="1.8"><path d="M3 12l9-9 9 9-9 9-9-9zM12 3v18"/></svg>
+          </div>
+          <span class="pc-status">Active</span>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-title">Glass UI — React 组件库</div>
+          <div class="pc-desc">一套以玻璃拟态为语言、面向 SaaS 后台的 React 组件库。38 个组件，完整 a11y 支持，Tree-shakeable，单包体积 < 20kb。</div>
+          <div class="pc-stack"><span>React</span><span>TypeScript</span><span>Radix</span><span>Tailwind</span></div>
+        </div>
+      </a>
+
+      <a href="project.html" class="project-card">
+        <div class="pc-glow" style="background: radial-gradient(ellipse 70% 60% at 70% 30%, rgba(168,85,247,0.16), transparent 60%);"></div>
+        <div class="pc-top">
+          <div class="pc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C4B5FD" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div>
+          <span class="pc-status">v2.1</span>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-title">Motion Canvas</div>
+          <div class="pc-desc">轻量的滚动驱动动画编排工具。</div>
+          <div class="pc-stack"><span>TS</span><span>GSAP</span></div>
+        </div>
+      </a>
+
+      <a href="project.html" class="project-card">
+        <div class="pc-glow" style="background: radial-gradient(ellipse 70% 60% at 30% 70%, rgba(34,211,238,0.14), transparent 60%);"></div>
+        <div class="pc-top">
+          <div class="pc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#67E8F9" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6v6H9z"/></svg></div>
+          <span class="pc-status">Open Source</span>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-title">Token Studio</div>
+          <div class="pc-desc">设计 token 可视化管理与导出。</div>
+          <div class="pc-stack"><span>Vue 3</span><span>Vite</span></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 Lin Chen — Crafted with care.</span>
+    <span class="mono">v1.0.0 · built with HTML/CSS</span>
+  </div>
+</footer>
+
+<script src="player.js"></script>
+<script>
+  // 背景动画跨页面延续
+  (function() {
+    var D = 48000, slides = document.querySelectorAll('.bg-slide');
+    if (!slides.length) return;
+    var start = parseFloat(localStorage.getItem('bgAnimStart'));
+    var now = Date.now();
+    if (!start || isNaN(start)) { start = now; localStorage.setItem('bgAnimStart', String(start)); }
+    var off = ((now - start) % D) / 1000;
+    var base = [0, -6, -12, -18, -24, -30, -36, -42];
+    slides.forEach(function(s, i) { s.style.animationDelay = (base[i] - off) + 's'; });
+  })();
+
+  // 滚动渐入
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // 导航高亮
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-links a');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navItems.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => navObserver.observe(s));
+
+  // 导航栏滚动加深（仅在越过阈值时切换 class）
+  let down = false;
+  window.addEventListener('scroll', () => {
+    const next = window.scrollY > 20;
+    if (next !== down) {
+      down = next;
+      document.body.classList.toggle('scrolled', down);
+    }
+  }, { passive: true });
+
+  // 主题切换
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+</script>
+
+</body>
+</html>

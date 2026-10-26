@@ -1,0 +1,18 @@
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器 / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# CodeArts Doer 本地工具配置（生成物，不入库）
+.codeartsdoer/
+
+# 日志与临时文件
+*.log
+*.tmp
+~$*

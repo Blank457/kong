@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目 — Lin Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+<div class="bg-scroll">
+  <div class="bg-slide" style="background-image:url('img/背景.jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (1).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (2).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (3).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (4).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (5).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (6).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (7).jpg')"></div>
+</div>
+<div class="bg-overlay"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"></span>
+      <span>Lin Chen</span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">关于</a>
+      <a href="posts.html">文章</a>
+      <a href="projects.html" class="active">项目</a>
+      <a href="music.html">音乐</a>
+
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a href="about.html#contact" class="nav-cta">订阅 RSS</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <section class="page-head">
+
+    <h1>所有项目</h1>
+    <p class="sub">我做过的东西——开源库、工具、实验性项目。大部分和前端界面工程相关。</p>
+    <div style="margin-top: 28px;">
+      <button class="btn-add" onclick="openModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        新增项目
+      </button>
+    </div>
+  </section>
+
+  <section class="projects reveal" style="margin-bottom: 100px;">
+    <div id="projectGrid" class="project-grid"></div>
+  </section>
+
+  <!-- 回收站 -->
+  <section class="reveal" id="trashSection" style="margin-bottom: 100px; display: none;">
+    <div class="section-head">
+      <h2>回收站</h2>
+      <span class="meta">// 24小时内可恢复</span>
+    </div>
+    <div id="trashList" class="post-list"></div>
+  </section>
+
+</main>
+
+<!-- 新增项目对话框 -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>新增项目</h3>
+      <button class="modal-close" onclick="closeModal()" aria-label="关闭">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>项目名称</label>
+        <input class="modal-input" id="fTitle" placeholder="例如：Glass UI" maxlength="40">
+      </div>
+      <div class="modal-field">
+        <label>描述</label>
+        <textarea class="modal-textarea" id="fDesc" placeholder="一句话介绍这个项目" maxlength="120"></textarea>
+      </div>
+      <div class="modal-field">
+        <label>技术栈（逗号分隔）</label>
+        <input class="modal-input" id="fStack" placeholder="React, TypeScript, Vite">
+      </div>
+      <div class="modal-field">
+        <label>状态</label>
+        <input class="modal-input" id="fStatus" placeholder="Active / v1.0 / Open Source" value="Active" maxlength="20">
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-submit" onclick="submitProject()">添加</button>
+    </div>
+  </div>
+</div>
+
+<!-- 确认删除对话框 -->
+<div class="modal-overlay" id="confirmOverlay">
+  <div class="modal" style="width: 400px;">
+    <div class="modal-head">
+      <h3>确认删除</h3>
+      <button class="modal-close" onclick="closeConfirm()" aria-label="关闭">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p id="confirmMsg" style="font-size:14px;color:var(--text-muted);line-height:1.7;margin:0;">确定要删除这个项目吗？项目将移入回收站，24小时内可恢复。</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeConfirm()">取消</button>
+      <button class="btn-submit" style="background:linear-gradient(135deg,#EF4444,#DC2626);border-color:rgba(239,68,68,0.4);box-shadow:0 0 16px rgba(239,68,68,0.2);" onclick="confirmDelete()">确认删除</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 Lin Chen — Crafted with care.</span>
+    <span class="mono">v1.0.0 · built with HTML/CSS</span>
+  </div>
+</footer>
+
+<script src="player.js"></script>
+<script>
+  // 背景动画跨页面延续
+  (function() {
+    var D = 48000, slides = document.querySelectorAll('.bg-slide');
+    if (!slides.length) return;
+    var start = parseFloat(localStorage.getItem('bgAnimStart'));
+    var now = Date.now();
+    if (!start || isNaN(start)) { start = now; localStorage.setItem('bgAnimStart', String(start)); }
+    var off = ((now - start) % D) / 1000;
+    var base = [0, -6, -12, -18, -24, -30, -36, -42];
+    slides.forEach(function(s, i) { s.style.animationDelay = (base[i] - off) + 's'; });
+  })();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  let down = false;
+  window.addEventListener('scroll', () => {
+    const next = window.scrollY > 20;
+    if (next !== down) {
+      down = next;
+      document.body.classList.toggle('scrolled', down);
+    }
+  }, { passive: true });
+
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+
+  /* ====== 项目增删逻辑 ====== */
+  var DEFAULT_PROJECTS = [
+    { id: 1, title: 'Glass UI — React 组件库', desc: '一套以玻璃拟态为语言、面向 SaaS 后台的 React 组件库。38 个组件，完整 a11y 支持，Tree-shakeable，单包体积 < 20kb。', stack: ['React','TypeScript','Radix','Tailwind'], status: 'Active', featured: true },
+    { id: 2, title: 'Motion Canvas', desc: '轻量的滚动驱动动画编排工具。', stack: ['TS','GSAP'], status: 'v2.1', featured: false },
+    { id: 3, title: 'Token Studio', desc: '设计 token 可视化管理与导出。', stack: ['Vue 3','Vite'], status: 'Open Source', featured: false },
+    { id: 4, title: 'CLI Theme Builder', desc: '从 Figma 变量生成终端配色方案。', stack: ['Node','Ink'], status: 'Archived', featured: false },
+    { id: 5, title: 'Star Hook', desc: 'React 状态管理的极简实验。', stack: ['React','TS'], status: 'v1.0', featured: false }
+  ];
+
+  function loadProjects() {
+    try { var s = localStorage.getItem('projects'); if (s) return JSON.parse(s); } catch(e) {}
+    return DEFAULT_PROJECTS.slice();
+  }
+  function saveProjects(list) { localStorage.setItem('projects', JSON.stringify(list)); }
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  function renderProjects() {
+    var list = loadProjects();
+    var grid = document.getElementById('projectGrid');
+    if (!list.length) {
+      grid.className = '';
+      grid.innerHTML = '<div class="empty-state">还没有项目，点击上方"新增项目"添加第一个吧。</div>';
+      return;
+    }
+    grid.className = 'project-grid';
+    var html = '';
+    list.forEach(function(p) {
+      var stacks = (p.stack || []).map(function(t){ return '<span>' + esc(t) + '</span>'; }).join('');
+      html += '<div class="project-card' + (p.featured ? ' featured' : '') + '">' +
+        '<button class="pc-delete" onclick="deleteProject(' + p.id + ')" aria-label="删除">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>' +
+        '</button>' +
+        '<div class="pc-glow" style="background: radial-gradient(ellipse 70% 60% at 40% 30%, rgba(99,102,241,0.16), transparent 60%);"></div>' +
+        '<div class="pc-top">' +
+          '<div class="pc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="1.8"><path d="M3 12l9-9 9 9-9 9-9-9zM12 3v18"/></svg></div>' +
+          '<span class="pc-status">' + esc(p.status || 'Active') + '</span>' +
+        '</div>' +
+        '<div class="pc-bottom">' +
+          '<div class="pc-title">' + esc(p.title) + '</div>' +
+          '<div class="pc-desc">' + esc(p.desc || '') + '</div>' +
+          '<div class="pc-stack">' + stacks + '</div>' +
+        '</div>' +
+      '</div>';
+    });
+    grid.innerHTML = html;
+  }
+
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.getElementById('fTitle').focus();
+  }
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.getElementById('fTitle').value = '';
+    document.getElementById('fDesc').value = '';
+    document.getElementById('fStack').value = '';
+    document.getElementById('fStatus').value = 'Active';
+  }
+  function submitProject() {
+    var title = document.getElementById('fTitle').value.trim();
+    if (!title) { document.getElementById('fTitle').focus(); return; }
+    var desc = document.getElementById('fDesc').value.trim();
+    var stack = document.getElementById('fStack').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
+    var status = document.getElementById('fStatus').value.trim() || 'Active';
+    var list = loadProjects();
+    var id = list.length ? Math.max.apply(null, list.map(function(p){return p.id;})) + 1 : 1;
+    list.push({ id: id, title: title, desc: desc, stack: stack, status: status, featured: false });
+    saveProjects(list);
+    closeModal();
+    renderProjects();
+  }
+  var pendingDeleteId = null;
+  function deleteProject(id) {
+    pendingDeleteId = id;
+    var list = loadProjects();
+    var p = list.find(function(x){return x.id === id;});
+    if (p) document.getElementById('confirmMsg').textContent = '确定要删除「' + p.title + '」吗？项目将移入回收站，24小时内可恢复。';
+    document.getElementById('confirmOverlay').classList.add('open');
+  }
+  function confirmDelete() {
+    if (pendingDeleteId !== null) {
+      var list = loadProjects();
+      var p = list.find(function(x){return x.id === pendingDeleteId;});
+      if (p) {
+        var trash = loadTrash();
+        trash.push({ project: p, deletedAt: Date.now() });
+        saveTrash(trash);
+      }
+      saveProjects(list.filter(function(x){return x.id !== pendingDeleteId;}));
+      pendingDeleteId = null;
+      renderProjects();
+      renderTrash();
+    }
+    closeConfirm();
+  }
+  function closeConfirm() {
+    document.getElementById('confirmOverlay').classList.remove('open');
+    pendingDeleteId = null;
+  }
+
+  /* ====== 回收站逻辑 ====== */
+  var TRASH_KEY = 'projectTrash';
+  var TRASH_TTL = 24 * 60 * 60 * 1000; // 24小时
+
+  function loadTrash() {
+    try { var s = localStorage.getItem(TRASH_KEY); if (s) return JSON.parse(s); } catch(e) {}
+    return [];
+  }
+  function saveTrash(list) { localStorage.setItem(TRASH_KEY, JSON.stringify(list)); }
+
+  // 清理过期项目（超过24小时）
+  function purgeExpired() {
+    var trash = loadTrash();
+    var now = Date.now();
+    var valid = trash.filter(function(t){ return (now - t.deletedAt) < TRASH_TTL; });
+    if (valid.length !== trash.length) saveTrash(valid);
+    return valid;
+  }
+
+  // 格式化剩余时间
+  function fmtRemaining(ms) {
+    if (ms <= 0) return '已过期';
+    var h = Math.floor(ms / 3600000);
+    var m = Math.floor((ms % 3600000) / 60000);
+    var s = Math.floor((ms % 60000) / 1000);
+    if (h > 0) return h + '小时' + m + '分后彻底删除';
+    if (m > 0) return m + '分' + s + '秒后彻底删除';
+    return s + '秒后彻底删除';
+  }
+
+  function renderTrash() {
+    var trash = purgeExpired();
+    var section = document.getElementById('trashSection');
+    var list = document.getElementById('trashList');
+    if (!trash.length) { section.style.display = 'none'; return; }
+    section.style.display = 'block';
+    var now = Date.now();
+    var html = '';
+    trash.forEach(function(t) {
+      var p = t.project;
+      var remaining = TRASH_TTL - (now - t.deletedAt);
+      var stacks = (p.stack || []).map(function(s){ return '<span class="tag">' + esc(s) + '</span>'; }).join(' ');
+      html += '<div class="post" style="cursor:default;">' +
+        '<span class="date mono" style="color:#F59E0B;">' + fmtRemaining(remaining) + '</span>' +
+        '<div class="body">' +
+          '<div class="title">' + esc(p.title) + '</div>' +
+          '<div class="desc">' + esc(p.desc || '') + ' ' + stacks + '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:8px;">' +
+          '<button class="btn-cancel" style="padding:6px 14px;font-size:12px;" onclick="restoreProject(' + p.id + ')">恢复</button>' +
+          '<button class="btn-cancel" style="padding:6px 14px;font-size:12px;color:#EF4444;border-color:rgba(239,68,68,0.3);" onclick="purgeProject(' + p.id + ')">彻底删除</button>' +
+        '</div>' +
+      '</div>';
+    });
+    list.innerHTML = html;
+  }
+
+  function restoreProject(id) {
+    var trash = loadTrash();
+    var item = trash.find(function(t){return t.project.id === id;});
+    if (item) {
+      var list = loadProjects();
+      list.push(item.project);
+      saveProjects(list);
+    }
+    saveTrash(trash.filter(function(t){return t.project.id !== id;}));
+    renderProjects();
+    renderTrash();
+  }
+
+  function purgeProject(id) {
+    saveTrash(loadTrash().filter(function(t){return t.project.id !== id;}));
+    renderTrash();
+  }
+
+  // 定时刷新回收站倒计时
+  setInterval(function() {
+    var section = document.getElementById('trashSection');
+    if (section && section.style.display !== 'none') renderTrash();
+  }, 1000);
+
+  // ESC 关闭对话框
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { closeModal(); closeConfirm(); }
+  });
+  // 点击遮罩关闭
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.getElementById('confirmOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeConfirm();
+  });
+
+  purgeExpired();
+  renderProjects();
+  renderTrash();
+</script>
+
+</body>
+</html>

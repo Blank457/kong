@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音乐 — Lin Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+<div class="bg-scroll">
+  <div class="bg-slide" style="background-image:url('img/背景.jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (1).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (2).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (3).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (4).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (5).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (6).jpg')"></div>
+  <div class="bg-slide" style="background-image:url('img/背景 (7).jpg')"></div>
+</div>
+<div class="bg-overlay"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"></span>
+      <span>Lin Chen</span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">关于</a>
+      <a href="posts.html">文章</a>
+      <a href="projects.html">项目</a>
+      <a href="music.html" class="active">音乐</a>
+
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a href="about.html#contact" class="nav-cta">订阅 RSS</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <section class="page-head">
+    <div class="crumb">
+      <a href="index.html">首页</a> / 音乐
+    </div>
+    <h1>音乐</h1>
+    <p class="sub">工作时循环的背景音乐。拖拽音频文件到下方区域，或点击上传按钮添加歌曲。切页时音乐自动延续播放。</p>
+  </section>
+
+  <section class="music-page reveal">
+    <div class="player-card">
+
+      <div class="visualizer-wrap">
+        <canvas id="viz" class="visualizer"></canvas>
+        <div class="viz-fallback" id="vizFallback">
+          <span class="vf-bar"></span><span class="vf-bar"></span><span class="vf-bar"></span>
+          <span class="vf-bar"></span><span class="vf-bar"></span><span class="vf-bar"></span>
+          <span class="vf-bar"></span><span class="vf-bar"></span><span class="vf-bar"></span>
+          <span class="vf-bar"></span><span class="vf-bar"></span><span class="vf-bar"></span>
+        </div>
+      </div>
+
+      <div class="now-playing">
+        <div class="album-art" id="albumArt">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5">
+            <circle cx="40" cy="40" r="36"/>
+            <circle cx="40" cy="40" r="18"/>
+            <circle cx="40" cy="40" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="np-info">
+          <div class="np-title" id="npTitle">未选择歌曲</div>
+          <div class="np-artist" id="npArtist">拖拽或上传音频文件</div>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="progress-thumb" id="progressThumb"></div>
+        </div>
+        <div class="time-display">
+          <span id="curTime">0:00</span>
+          <span id="totTime">0:00</span>
+        </div>
+      </div>
+
+      <div class="player-controls">
+        <div class="ctrl-group">
+          <button class="ctrl-btn" id="btnPlayMode" onclick="MusicPlayer.togglePlayMode()" title="顺序播放">
+            <svg class="mode-seq" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h13M4 12h13M4 18h13"/><path d="M17 4l3 2-3 2M17 10l3 2-3 2M17 16l3 2-3 2"/></svg>
+            <svg class="mode-one" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"/><circle cx="12" cy="14.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+            <svg class="mode-shuffle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+          </button>
+          <button class="ctrl-btn" onclick="MusicPlayer.prev()" title="上一首">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          <button class="ctrl-btn play" id="btnPlay" onclick="MusicPlayer.togglePlay()" title="播放/暂停">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>
+          </button>
+          <button class="ctrl-btn" onclick="MusicPlayer.next()" title="下一首">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg>
+          </button>
+
+        </div>
+        <div class="volume-control">
+          <button class="ctrl-btn sm" id="btnMute" onclick="MusicPlayer.toggleMute()" title="静音">
+            <svg class="vol-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg>
+          </button>
+          <input type="range" class="volume-slider" id="volSlider" min="0" max="100" value="75">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="playlist-section">
+      <div class="playlist-head">
+        <h2>播放列表</h2>
+        <div class="playlist-actions">
+          <label class="btn-add" style="cursor:pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            上传音乐
+            <input type="file" accept="audio/*" multiple style="display:none" id="fileInput">
+          </label>
+          <button class="btn-cancel" onclick="exportPlaylist()" title="导出播放列表到文件">导出</button>
+          <button class="btn-cancel" onclick="document.getElementById('importInput').click()" title="从文件导入播放列表">导入</button>
+          <input type="file" accept=".json" style="display:none" id="importInput" onchange="importPlaylist(this.files[0])">
+          <button class="btn-cancel" onclick="MusicPlayer.clearPlaylist()" title="清空列表">清空</button>
+        </div>
+      </div>
+      <div class="upload-zone" id="uploadZone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32" opacity="0.4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        <p>拖拽音频文件到此处，或点击「上传音乐」按钮</p>
+        <span class="mono">支持 mp3 · wav · ogg · flac · m4a</span>
+      </div>
+      <div class="playlist" id="playlist"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 Lin Chen — Crafted with care.</span>
+    <span class="mono">v1.0.0 · built with HTML/CSS</span>
+  </div>
+</footer>
+
+<div class="drop-overlay" id="dropOverlay">
+  <div class="drop-inner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+    <p>松开以添加音乐文件</p>
+  </div>
+</div>
+
+<script src="player.js"></script>
+<script>
+  // 背景动画跨页面延续
+  (function() {
+    var D = 48000, slides = document.querySelectorAll('.bg-slide');
+    if (!slides.length) return;
+    var start = parseFloat(localStorage.getItem('bgAnimStart'));
+    var now = Date.now();
+    if (!start || isNaN(start)) { start = now; localStorage.setItem('bgAnimStart', String(start)); }
+    var off = ((now - start) % D) / 1000;
+    var base = [0, -6, -12, -18, -24, -30, -36, -42];
+    slides.forEach(function(s, i) { s.style.animationDelay = (base[i] - off) + 's'; });
+  })();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  let down = false;
+  window.addEventListener('scroll', () => {
+    const next = window.scrollY > 20;
+    if (next !== down) { down = next; document.body.classList.toggle('scrolled', down); }
+  }, { passive: true });
+
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+
+  // ============ 音乐播放器 UI（基于 MusicPlayer） ============
+  var MP = window.MusicPlayer;
+  var audio = MP.audio;
+
+  var npTitle = document.getElementById('npTitle');
+  var npArtist = document.getElementById('npArtist');
+  var albumArt = document.getElementById('albumArt');
+  var progressBar = document.getElementById('progressBar');
+  var progressFill = document.getElementById('progressFill');
+  var progressThumb = document.getElementById('progressThumb');
+  var curTimeEl = document.getElementById('curTime');
+  var totTimeEl = document.getElementById('totTime');
+  var btnPlay = document.getElementById('btnPlay');
+  var playIcon = btnPlay.querySelector('.play-icon');
+  var pauseIcon = btnPlay.querySelector('.pause-icon');
+  var btnPlayMode = document.getElementById('btnPlayMode');
+  var volSlider = document.getElementById('volSlider');
+  var playlistEl = document.getElementById('playlist');
+  var uploadZone = document.getElementById('uploadZone');
+  var dropOverlay = document.getElementById('dropOverlay');
+  var vizCanvas = document.getElementById('viz');
+  var vizFallback = document.getElementById('vizFallback');
+
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function updatePlayerUI() {
+    var tracks = MP.tracks;
+    var idx = MP.currentIdx;
+
+    if (idx >= 0 && tracks[idx]) {
+      npTitle.textContent = tracks[idx].name;
+      npArtist.textContent = '本地音频 · ' + (tracks[idx].size / 1024 / 1024).toFixed(1) + ' MB';
+    } else {
+      npTitle.textContent = '未选择歌曲';
+      npArtist.textContent = '拖拽或上传音频文件';
+    }
+
+    if (audio.paused) { playIcon.style.display = 'block'; pauseIcon.style.display = 'none'; albumArt.classList.remove('playing'); }
+    else { playIcon.style.display = 'none'; pauseIcon.style.display = 'block'; albumArt.classList.add('playing'); }
+
+    if (audio.duration && isFinite(audio.duration)) {
+      var pct = (audio.currentTime / audio.duration) * 100;
+      progressFill.style.width = pct + '%';
+      progressThumb.style.left = pct + '%';
+      curTimeEl.textContent = MP.formatTime(audio.currentTime);
+      totTimeEl.textContent = MP.formatTime(audio.duration);
+    } else {
+      progressFill.style.width = '0%';
+      progressThumb.style.left = '0%';
+      curTimeEl.textContent = '0:00';
+      totTimeEl.textContent = '0:00';
+    }
+
+    var pm = MP.playMode;
+    btnPlayMode.classList.toggle('active', pm > 0);
+    btnPlayMode.title = pm === 0 ? '顺序播放' : pm === 1 ? '单曲循环' : '随机播放';
+    btnPlayMode.querySelector('.mode-seq').style.display = pm === 0 ? '' : 'none';
+    btnPlayMode.querySelector('.mode-one').style.display = pm === 1 ? '' : 'none';
+    btnPlayMode.querySelector('.mode-shuffle').style.display = pm === 2 ? '' : 'none';
+
+    var v = MP.muted ? 0 : MP.volume;
+    volSlider.value = Math.round(v * 100);
+    document.querySelector('.vol-icon').style.display = (MP.muted || v === 0) ? 'none' : 'block';
+    document.querySelector('.mute-icon').style.display = (MP.muted || v === 0) ? 'block' : 'none';
+  }
+
+  function renderPlaylist() {
+    var tracks = MP.tracks;
+    if (tracks.length === 0) {
+      uploadZone.style.display = 'flex';
+      playlistEl.innerHTML = '';
+      return;
+    }
+    uploadZone.style.display = 'none';
+    var html = '';
+    for (var i = 0; i < tracks.length; i++) {
+      var active = i === MP.currentIdx;
+      var playing = active && !audio.paused;
+      html += '<div class="playlist-item' + (active ? ' active' : '') + '" data-idx="' + i + '">';
+      html += '<span class="pi-idx">' + (playing ? '♪' : (i + 1)) + '</span>';
+      html += '<span class="pi-name">' + escapeHtml(tracks[i].name) + '</span>';
+      html += '<span class="pi-size">' + (tracks[i].size / 1024 / 1024).toFixed(1) + ' MB</span>';
+      html += '<button class="pi-del" data-del="' + i + '" title="移除">';
+      html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+      html += '</button>';
+      html += '</div>';
+    }
+    playlistEl.innerHTML = html;
+
+    playlistEl.querySelectorAll('.playlist-item').forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        if (e.target.closest('.pi-del')) return;
+        var idx = parseInt(this.getAttribute('data-idx'));
+        MP.loadTrack(idx);
+        MP.play();
+      });
+    });
+    playlistEl.querySelectorAll('.pi-del').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var idx = parseInt(this.getAttribute('data-del'));
+        MP.delTrack(idx);
+      });
+    });
+  }
+
+  // 可视化
+  function resizeViz() {
+    var wrap = vizCanvas.parentElement;
+    vizCanvas.width = wrap.offsetWidth;
+    vizCanvas.height = wrap.offsetHeight;
+  }
+  resizeViz();
+  window.addEventListener('resize', resizeViz);
+
+  function drawViz() {
+    requestAnimationFrame(drawViz);
+    var ctx = vizCanvas.getContext('2d');
+    var w = vizCanvas.width, h = vizCanvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    var analyser = MP.analyser;
+    var dataArr = MP.dataArr;
+    if (!analyser || audio.paused) return;
+
+    analyser.getByteFrequencyData(dataArr);
+    var bars = dataArr.length;
+    var barW = w / bars;
+    var gap = Math.max(1, barW * 0.3);
+
+    for (var i = 0; i < bars; i++) {
+      var v = dataArr[i] / 255;
+      var barH = Math.max(2, v * h * 0.85);
+      var x = i * barW;
+      var y = h - barH;
+      var grad = ctx.createLinearGradient(0, h, 0, y);
+      grad.addColorStop(0, 'rgba(99, 102, 241, 0.9)');
+      grad.addColorStop(0.5, 'rgba(168, 85, 247, 0.85)');
+      grad.addColorStop(1, 'rgba(34, 211, 238, 0.8)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(x + gap / 2, y, barW - gap, barH);
+    }
+  }
+  drawViz();
+
+  // 事件监听
+  MP.on('play', function() {
+    playIcon.style.display = 'none'; pauseIcon.style.display = 'block';
+    albumArt.classList.add('playing');
+    vizFallback.style.display = 'none'; vizCanvas.style.display = 'block';
+    renderPlaylist();
+  });
+  MP.on('pause', function() {
+    playIcon.style.display = 'block'; pauseIcon.style.display = 'none';
+    albumArt.classList.remove('playing');
+    renderPlaylist();
+  });
+  MP.on('timeupdate', function() {
+    if (audio.duration && isFinite(audio.duration)) {
+      var pct = (audio.currentTime / audio.duration) * 100;
+      progressFill.style.width = pct + '%';
+      progressThumb.style.left = pct + '%';
+      curTimeEl.textContent = MP.formatTime(audio.currentTime);
+    }
+  });
+  MP.on('loadedmetadata', function() {
+    totTimeEl.textContent = MP.formatTime(audio.duration);
+  });
+  MP.on('trackchange', function() { updatePlayerUI(); });
+  MP.on('playlistchange', function() { renderPlaylist(); updatePlayerUI(); });
+  MP.on('statechange', function() { updatePlayerUI(); });
+  MP.on('volumechange', function() { updatePlayerUI(); });
+  MP.on('ctxready', function() {
+    vizFallback.style.display = 'none'; vizCanvas.style.display = 'block';
+  });
+  MP.on('ready', function() { renderPlaylist(); updatePlayerUI(); });
+
+  // 进度条拖拽
+  var seeking = false;
+  function seekTo(e) {
+    var rect = progressBar.getBoundingClientRect();
+    var cx = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+    var pct = Math.max(0, Math.min(1, (cx - rect.left) / rect.width));
+    if (audio.duration && isFinite(audio.duration)) {
+      audio.currentTime = pct * audio.duration;
+      progressFill.style.width = (pct * 100) + '%';
+      progressThumb.style.left = (pct * 100) + '%';
+    }
+  }
+  progressBar.addEventListener('mousedown', function(e) { seeking = true; seekTo(e); });
+  window.addEventListener('mousemove', function(e) { if (seeking) seekTo(e); });
+  window.addEventListener('mouseup', function() { seeking = false; });
+
+  // 音量
+  volSlider.addEventListener('input', function() {
+    MP.setVolume(volSlider.value / 100);
+  });
+
+  // 文件上传
+  document.getElementById('fileInput').addEventListener('change', function(e) {
+    MP.addFiles(e.target.files).then(function() { renderPlaylist(); updatePlayerUI(); });
+    e.target.value = '';
+  });
+
+  // 拖拽
+  var dragCount = 0;
+  window.addEventListener('dragenter', function(e) { e.preventDefault(); dragCount++; dropOverlay.classList.add('open'); });
+  window.addEventListener('dragleave', function(e) { e.preventDefault(); dragCount--; if (dragCount <= 0) { dragCount = 0; dropOverlay.classList.remove('open'); } });
+  window.addEventListener('dragover', function(e) { e.preventDefault(); });
+  window.addEventListener('drop', function(e) {
+    e.preventDefault(); dragCount = 0; dropOverlay.classList.remove('open');
+    if (e.dataTransfer && e.dataTransfer.files) {
+      MP.addFiles(e.dataTransfer.files).then(function() { renderPlaylist(); updatePlayerUI(); });
+    }
+  });
+
+  // 导出/导入播放列表
+  function exportPlaylist() {
+    MP.exportData().then(function(data) {
+      if (!data.tracks || data.tracks.length === 0) { alert('播放列表为空'); return; }
+      var json = JSON.stringify(data);
+      var blob = new Blob([json], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'playlist.json'; a.click();
+      URL.revokeObjectURL(url);
+    });
+  }
+  function importPlaylist(file) {
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function() {
+      try {
+        var data = JSON.parse(reader.result);
+        MP.importData(data).then(function() { renderPlaylist(); updatePlayerUI(); });
+      } catch(e) { alert('无效的播放列表文件'); }
+    };
+    reader.readAsText(file);
+  }
+
+  // 键盘快捷键
+  window.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT') return;
+    if (e.code === 'Space') { e.preventDefault(); MP.togglePlay(); }
+    else if (e.code === 'ArrowRight' && e.shiftKey) MP.next();
+    else if (e.code === 'ArrowLeft' && e.shiftKey) MP.prev();
+    else if (e.code === 'ArrowUp' && e.shiftKey) { e.preventDefault(); MP.setVolume(Math.min(1, MP.volume + 0.05)); }
+    else if (e.code === 'ArrowDown' && e.shiftKey) { e.preventDefault(); MP.setVolume(Math.max(0, MP.volume - 0.05)); }
+  });
+</script>
+
+</body>
+</html>
