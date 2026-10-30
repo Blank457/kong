@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>训练计划 · 羽毛球空间</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="training">
+  <canvas id="bg-canvas"></canvas>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="dot">羽</span>羽毛球空间 · BAD</a>
+      <nav class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="training.html">训练</a>
+        <a href="gear.html">装备</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="section-head" style="margin-top:0">
+      <h2>今日训练计划</h2>
+      <span class="link">点击条目即可打卡</span>
+    </div>
+
+    <div class="card" style="padding:26px; margin-bottom:20px">
+      <div style="display:flex; justify-content:space-between; align-items:baseline">
+        <div>
+          <div style="font-size:13px; color:var(--ink-soft)">完成进度</div>
+          <div style="font-size:30px; font-weight:800; letter-spacing:-0.02em">
+            <span id="plan-done">0</span><small style="font-size:15px; color:var(--ink-soft)"> / <span id="plan-total">5</span> 项</small>
+          </div>
+        </div>
+        <span class="tag">今日</span>
+      </div>
+      <div class="bar"><i id="plan-ring" style="width:0%"></i></div>
+    </div>
+
+    <div class="section-head">
+      <h2>本周训练打卡</h2>
+    </div>
+    <div class="day-grid" id="week-grid"></div>
+
+    <div class="section-head">
+      <h2>训练安排</h2>
+    </div>
+    <div class="plan-list" id="plan-list"></div>
+
+    <div class="section-head">
+      <h2>技术要点</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card gear-card">
+        <div class="emoji-badge">🏸</div>
+        <div class="name">后场发力</div>
+        <p>蹬转发力顺序：腿 → 腰腹 → 肩 → 肘 → 腕，击球点尽量在头顶前方。</p>
+      </div>
+      <div class="card gear-card">
+        <div class="emoji-badge">👟</div>
+        <div class="name">步法节奏</div>
+        <p>启动小跳要轻，回位用并步，重心保持在脚掌前部，减少大跨步。</p>
+      </div>
+      <div class="card gear-card">
+        <div class="emoji-badge">🎯</div>
+        <div class="name">落点控制</div>
+        <p>拉吊结合时先压两个底线，再突然收吊网前，让对手前后跑动。</p>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 羽毛球空间 · 用热爱打球</span>
+      <span>数据保存在本机浏览器</span>
+    </footer>
+  </main>
+
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

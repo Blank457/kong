@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人羽毛球空间</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="index">
+  <canvas id="bg-canvas"></canvas>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="dot">羽</span>羽毛球空间 · BAD</a>
+      <nav class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="training.html">训练</a>
+        <a href="gear.html">装备</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="card hero-main">
+        <span class="eyebrow">Personal Badminton Space</span>
+        <h1>把每一拍<br />都打成 <span class="accent">好球</span></h1>
+        <p class="lead">单打爱好者，主攻拉吊突击。这里记录我的训练日常和球拍装备。</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="training.html">开始今日训练</a>
+          <a class="btn btn-ghost" href="gear.html">查看装备清单</a>
+        </div>
+      </div>
+
+      <aside class="hero-side">
+        <div class="card mini">
+          <span class="label">球龄 · 每周频率</span>
+          <div class="value">5 年 <small>/ 每周 3 次</small></div>
+          <span class="hint">右手持拍 · 单打为主</span>
+        </div>
+        <div class="card mini accent">
+          <span class="label">今日训练完成度</span>
+          <div class="value" id="home-plan-progress">0/5</div>
+          <div class="bar"><i id="home-plan-bar" style="width:0%"></i></div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="grid-4">
+      <div class="card stat">
+        <div class="k">今日完成</div>
+        <div class="v" id="stat-done">0<span>项</span></div>
+      </div>
+      <div class="card stat">
+        <div class="k">本周训练</div>
+        <div class="v" id="stat-week">0<span>天</span></div>
+      </div>
+      <div class="card stat">
+        <div class="k">训练项目</div>
+        <div class="v">5<span>项</span></div>
+      </div>
+      <div class="card stat">
+        <div class="k">球拍磅数</div>
+        <div class="v">26<span>lbs</span></div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2>今日训练</h2>
+      <a class="link" href="training.html">去打卡 →</a>
+    </div>
+    <div class="card" style="overflow:hidden">
+      <div class="plan-list" id="home-plan-list" style="padding:14px"></div>
+    </div>
+
+    <footer>
+      <span>© 2026 羽毛球空间 · 用热爱打球</span>
+      <span>数据保存在本机浏览器</span>
+    </footer>
+  </main>
+
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
