@@ -11,6 +11,16 @@ desktop.ini
 
 # CodeArts Doer 本地工具配置（生成物，不入库）
 .codeartsdoer/
+.agents/
+.claude/
+.arts/
+.merkle-snapshot.json
+skills-lock.json
+
+# 发布临时产物与凭证（严禁入库）
+cover.png
+sts-creds.json
+sts-creds.sh
 
 # 日志与临时文件
 *.log
